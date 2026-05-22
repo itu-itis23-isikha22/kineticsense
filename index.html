@@ -1,2535 +1,863 @@
 <!DOCTYPE html>
 <!--
-KineticSense Landing Page
-Quick edit guide:
-1) Change text content:
-   - Search for: EDIT: TEXT
-   - Most copy lives inside the HTML sections below.
-2) Change colors:
-   - Search for: EDIT: COLORS
-   - Update the CSS variables inside :root.
-3) Replace placeholder visuals/screenshots later:
-   - Search for: EDIT: VISUAL
-   - Replace the mockup blocks in the Hero and Dashboard sections with your own images or screenshots.
+  KineticSense — Modular Sports Motion Analysis Platform
+  Team MSH · Single-file site for GitHub Pages (drop in as index.html)
+
+  QUICK EDITS
+  - Colours:        search ":root"  (CSS variables)
+  - Text content:   search "EDIT:"
+  - Demo narrative: search "REP_SCRIPT" (the deterministic rep sequence the live demo plays)
+  - Team / contact: search "TEAM INFO"
 -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KineticSense | Modular Sports Motion Analysis Platform</title>
-  <meta
-    name="description"
-    content="KineticSense is a modular wearable sports motion analysis platform for academies, university programs, and professional teams."
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-  <style>
-    /* =========================================================
-       EDIT: COLORS
-       Update these variables to change the overall brand palette.
-       ========================================================= */
-    :root {
-      --bg: #07111f;
-      --bg-soft: #0d1b30;
-      --surface: #101f36;
-      --surface-2: #132744;
-      --surface-3: #0f1726;
-      --line: rgba(255,255,255,0.08);
-      --text: #eaf1fb;
-      --muted: #a9b7ca;
-      --white: #ffffff;
-      --accent: #4fd1c5;
-      --accent-2: #7aa8ff;
-      --accent-3: #8ef0e6;
-      --success: #53d98c;
-      --warning: #ffbf5f;
-      --danger: #ff7f7f;
-      --shadow: 0 12px 40px rgba(0, 0, 0, 0.32);
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --radius-sm: 12px;
-      --container: 1180px;
-      --nav-height: 76px;
-      --transition: 220ms ease;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(79, 209, 197, 0.12), transparent 24%),
-        radial-gradient(circle at top right, rgba(122, 168, 255, 0.12), transparent 22%),
-        linear-gradient(180deg, #06101d 0%, #091421 35%, #07111f 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    .container {
-      width: min(calc(100% - 32px), var(--container));
-      margin: 0 auto;
-    }
-
-    .section {
-      padding: 104px 0;
-      position: relative;
-    }
-
-    .section-tight {
-      padding: 78px 0;
-    }
-
-    .section-header {
-      max-width: 760px;
-      margin-bottom: 42px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.82rem;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--accent-3);
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 28px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent));
-      opacity: 0.9;
-    }
-
-    h1, h2, h3, h4 {
-      margin: 0 0 16px;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 6vw, 4.8rem);
-      font-weight: 800;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 4vw, 3.1rem);
-      font-weight: 800;
-    }
-
-    h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .lead {
-      font-size: 1.12rem;
-      max-width: 640px;
-    }
-
-    .small {
-      font-size: 0.94rem;
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .gradient-text {
-      background: linear-gradient(90deg, #ffffff 0%, #bcefe9 38%, #8fb5ff 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 50px;
-      padding: 0 20px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, #6be6db 100%);
-      color: #06111e;
-      box-shadow: 0 14px 30px rgba(79, 209, 197, 0.18);
-    }
-
-    .btn-secondary {
-      border-color: rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.03);
-      color: var(--text);
-      backdrop-filter: blur(8px);
-    }
-
-    .btn-secondary:hover {
-      border-color: rgba(255,255,255,0.22);
-      background: rgba(255,255,255,0.06);
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow);
-    }
-
-    /* =======================
-       Navigation
-       ======================= */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(16px);
-      background: rgba(7, 17, 31, 0.76);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .nav {
-      height: var(--nav-height);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      font-size: 1.15rem;
-      color: var(--white);
-    }
-
-    .logo-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background:
-        linear-gradient(135deg, rgba(79,209,197,0.18), rgba(122,168,255,0.2)),
-        rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-
-    .logo-mark svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      margin-left: auto;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: color var(--transition);
-    }
-
-    .nav-links a:hover,
-    .nav-links a:focus {
-      color: var(--white);
-    }
-
-    .nav-cta {
-      margin-left: 8px;
-    }
-
-    .menu-toggle {
-      display: none;
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.04);
-      color: var(--white);
-      cursor: pointer;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-    }
-
-    .menu-toggle svg {
-      width: 22px;
-      height: 22px;
-    }   
-    .mobile-nav {
-      display: none;
-    }
-     
-    /* =======================
-       Hero
-       ======================= */
-    .hero {
-      padding: 72px 0 46px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: center;
-      gap: 42px;
-    }
-
-    .hero-copy p {
-      max-width: 620px;
-      font-size: 1.08rem;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 26px 0 32px;
-    }
-
-    .hero-highlight {
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    /* EDIT: VISUAL - Replace this hero mockup block with your own product image or screenshots later */
-    .hero-visual {
-      position: relative;
-      min-height: 620px;
-      border-radius: 30px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        radial-gradient(circle at 20% 18%, rgba(79,209,197,0.20), transparent 24%),
-        radial-gradient(circle at 80% 16%, rgba(122,168,255,0.20), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      padding: 24px;
-    }
-
-    .mock-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 28px 28px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,0.2));
-      opacity: 0.36;
-      pointer-events: none;
-    }
-
-    .hero-dashboard {
-      position: absolute;
-      right: 24px;
-      top: 24px;
-      width: min(360px, 72%);
-      padding: 18px;
-      border-radius: 22px;
-      background: rgba(8, 15, 28, 0.88);
-      border: 1px solid rgba(255,255,255,0.09);
-      box-shadow: 0 24px 50px rgba(0,0,0,0.28);
-    }
-
-    .window-dots {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .window-dots span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.18);
-    }
-
-    .window-dots span:nth-child(1) { background: #ff7f7f; }
-    .window-dots span:nth-child(2) { background: #ffbf5f; }
-    .window-dots span:nth-child(3) { background: #53d98c; }
-
-    .dashboard-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .dashboard-head h4 {
-      margin: 0 0 4px;
-      font-size: 1rem;
-    }
-
-    .dashboard-kpis {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .mini-stat {
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .mini-stat strong {
-      display: block;
-      font-size: 1.2rem;
-      margin-bottom: 3px;
-      color: var(--white);
-    }
-
-    .mini-chart {
-      display: flex;
-      align-items: end;
-      gap: 7px;
-      height: 78px;
-      margin-top: 8px;
-    }
-
-    .mini-chart span {
-      flex: 1;
-      border-radius: 8px 8px 3px 3px;
-      background: linear-gradient(180deg, var(--accent), rgba(79,209,197,0.18));
-      min-height: 12px;
-    }
-
-    .hero-phone {
-      position: absolute;
-      left: 48px;
-      bottom: 34px;
-      width: 210px;
-      padding: 14px;
-      border-radius: 28px;
-      background: linear-gradient(180deg, #07101d, #0c1828);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 24px 50px rgba(0,0,0,0.34);
-      transform: rotate(-6deg);
-    }
-
-    .phone-notch {
-      width: 92px;
-      height: 18px;
-      margin: 0 auto 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-    }
-
-    .phone-screen {
-      padding: 16px;
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at top, rgba(79,209,197,0.18), transparent 28%),
-        rgba(255,255,255,0.03);
-      min-height: 360px;
-    }
-
-    .score-ring {
-      width: 124px;
-      height: 124px;
-      margin: 12px auto 18px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle, #08111d 56%, transparent 57%),
-        conic-gradient(var(--accent) 0 78%, rgba(255,255,255,0.08) 78% 100%);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
-    }
-
-    .score-ring strong {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--white);
-    }
-
-    .score-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .score-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .score-bar {
-      flex: 1;
-      height: 8px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.08);
-    }
-
-    .score-bar span {
-      display: block;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    }
-
-    .hero-sensor {
-      position: absolute;
-      left: 250px;
-      top: 138px;
-      width: 132px;
-      height: 200px;
-      border-radius: 26px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.03)),
-        linear-gradient(180deg, #12233a, #0a1322);
-      border: 1px solid rgba(255,255,255,0.12);
-      transform: rotate(10deg);
-      box-shadow: 0 28px 48px rgba(0,0,0,0.32);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .sensor-core {
-      width: 76px;
-      height: 132px;
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at 30% 25%, rgba(79,209,197,0.26), transparent 30%),
-        linear-gradient(180deg, #0b1524, #152946);
-      border: 1px solid rgba(255,255,255,0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .sensor-core::before,
-    .sensor-core::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .sensor-core::before { top: 16px; }
-    .sensor-core::after { bottom: 16px; }
-
-    .wearables {
-      position: absolute;
-      right: 42px;
-      bottom: 26px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(88px, 1fr));
-      gap: 12px;
-      width: min(360px, 72%);
-    }
-
-    .wearable {
-      min-height: 96px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-
-    .wearable-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: rgba(79,209,197,0.1);
-      color: var(--accent-3);
-      border: 1px solid rgba(79,209,197,0.18);
-    }
-
-    .wearable span {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--muted);
-    }
-
-    .value-strip {
-      margin-top: 34px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .value-item {
-      padding: 16px 18px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 72px;
-    }
-
-    .value-item .icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: rgba(255,255,255,0.05);
-      color: var(--accent-3);
-      flex-shrink: 0;
-    }
-
-    .value-item strong {
-      display: block;
-      font-size: 0.98rem;
-      color: var(--white);
-    }
-
-    .value-item span {
-      font-size: 0.87rem;
-      color: var(--muted);
-    }
-
-    /* =======================
-       Grids and cards
-       ======================= */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .feature-card,
-    .benefit-card,
-    .sport-card,
-    .pricing-card,
-    .problem-card,
-    .compare-card,
-    .contact-card {
-      padding: 26px;
-      height: 100%;
-    }
-
-    .card-icon {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(79,209,197,0.16), rgba(122,168,255,0.14));
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--accent-3);
-      margin-bottom: 18px;
-    }
-
-    .card-icon svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .feature-card ul,
-    .pricing-card ul {
-      list-style: none;
-      margin: 18px 0 0;
-      padding: 0;
-      display: grid;
-      gap: 10px;
-    }
-
-    .feature-card li,
-    .pricing-card li {
-      position: relative;
-      padding-left: 24px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .feature-card li::before,
-    .pricing-card li::before {
-      content: "•";
-      position: absolute;
-      left: 8px;
-      color: var(--accent);
-      font-weight: 800;
-    }
-
-    /* =======================
-       Problem
-       ======================= */
-    .problem-layout {
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 26px;
-      align-items: stretch;
-    }
-
-    .problem-panel {
-      padding: 30px;
-      min-height: 100%;
-    }
-
-    .problem-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .problem-item {
-      display: flex;
-      gap: 14px;
-      align-items: start;
-      padding: 16px 18px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .problem-badge {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: rgba(255,127,127,0.12);
-      border: 1px solid rgba(255,127,127,0.18);
-      color: var(--danger);
-      flex-shrink: 0;
-      font-size: 0.95rem;
-      font-weight: 800;
-    }
-
-    .problem-stats {
-      display: grid;
-      gap: 14px;
-    }
-
-    .problem-quote {
-      padding: 28px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .quote-mark {
-      font-size: 3rem;
-      line-height: 1;
-      color: rgba(255,255,255,0.16);
-      margin-bottom: 18px;
-    }
-
-    /* =======================
-       How it works
-       ======================= */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 16px;
-      position: relative;
-    }
-
-    .step {
-      padding: 22px 18px;
-      position: relative;
-      min-height: 224px;
-    }
-
-    .step-number {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(180deg, rgba(79,209,197,0.18), rgba(122,168,255,0.14));
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--white);
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .step::after {
-      content: "";
-      position: absolute;
-      right: -10px;
-      top: 38px;
-      width: 20px;
-      height: 2px;
-      background: linear-gradient(90deg, rgba(79,209,197,0.6), rgba(79,209,197,0));
-    }
-
-    .step:last-child::after {
-      display: none;
-    }
-
-    /* =======================
-       Dashboard
-       ======================= */
-    /* EDIT: VISUAL - Replace this dashboard mockup later with your own real interface screenshots if you want */
-    .dashboard-shell {
-      padding: 22px;
-      border-radius: 28px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
-        rgba(9,17,30,0.9);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .dashboard-layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 18px;
-      min-height: 600px;
-    }
-
-    .dashboard-sidebar {
-      border-radius: 22px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .sidebar-block {
-      padding: 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .team-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .team-user {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-
-    .avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(79,209,197,0.3), rgba(122,168,255,0.28));
-      display: grid;
-      place-items: center;
-      color: var(--white);
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .dashboard-main {
-      display: grid;
-      gap: 18px;
-    }
-
-    .dash-top {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .metric-card {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .metric-label {
-      color: var(--muted);
-      font-size: 0.88rem;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .metric-value {
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: var(--white);
-      margin-bottom: 8px;
-      letter-spacing: -0.03em;
-    }
-
-    .trend-up {
-      color: var(--success);
-      font-size: 0.86rem;
-      font-weight: 700;
-    }
-
-    .trend-neutral {
-      color: var(--warning);
-      font-size: 0.86rem;
-      font-weight: 700;
-    }
-
-    .dash-middle {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 16px;
-    }
-
-    .panel {
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .panel-head {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .line-chart {
-      position: relative;
-      height: 220px;
-      border-radius: 18px;
-      background:
-        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 100% 25%, 12.5% 100%;
-      overflow: hidden;
-    }
-
-    .line-chart svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .flag-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .flag-item {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .status-tag {
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .status-medium {
-      background: rgba(255,191,95,0.12);
-      color: var(--warning);
-      border: 1px solid rgba(255,191,95,0.18);
-    }
-
-    .status-low {
-      background: rgba(83,217,140,0.12);
-      color: var(--success);
-      border: 1px solid rgba(83,217,140,0.18);
-    }
-
-    .status-review {
-      background: rgba(122,168,255,0.12);
-      color: var(--accent-2);
-      border: 1px solid rgba(122,168,255,0.18);
-    }
-
-    .dash-bottom {
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 16px;
-    }
-
-    .bar-group {
-      display: grid;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .bar-row {
-      display: grid;
-      grid-template-columns: 140px 1fr 50px;
-      gap: 12px;
-      align-items: center;
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-
-    .bar-track {
-      height: 10px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.08);
-    }
-
-    .bar-track span {
-      display: block;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    }
-
-    .notes {
-      display: grid;
-      gap: 12px;
-      margin-top: 10px;
-    }
-
-    .note-item {
-      padding: 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.05);
-      background: rgba(255,255,255,0.03);
-    }
-
-    /* =======================
-       Comparison table
-       ======================= */
-    .comparison-wrap {
-      overflow-x: auto;
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      box-shadow: var(--shadow);
-    }
-
-    table.comparison {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 860px;
-    }
-
-    .comparison th,
-    .comparison td {
-      padding: 18px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .comparison th {
-      font-size: 0.9rem;
-      color: var(--muted);
-      background: rgba(255,255,255,0.02);
-      font-weight: 700;
-    }
-
-    .comparison td:first-child,
-    .comparison th:first-child {
-      width: 220px;
-      color: var(--white);
-      font-weight: 700;
-    }
-
-    .comparison tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .check {
-      color: var(--success);
-      font-weight: 800;
-    }
-
-    .cross {
-      color: var(--danger);
-      font-weight: 800;
-    }
-
-    .partial {
-      color: var(--warning);
-      font-weight: 800;
-    }
-
-    /* =======================
-       Pricing
-       ======================= */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .pricing-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pricing-card.featured {
-      border-color: rgba(79,209,197,0.22);
-      transform: translateY(-4px);
-    }
-
-    .pricing-card.featured::before {
-      content: "Recommended";
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(79,209,197,0.13);
-      color: var(--accent-3);
-      border: 1px solid rgba(79,209,197,0.18);
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-
-    .price {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      margin: 12px 0 8px;
-    }
-
-    .price strong {
-      font-size: 2.2rem;
-      line-height: 1;
-      color: var(--white);
-      font-weight: 800;
-    }
-
-    .hardware-note {
-      margin-top: 28px;
-      padding: 22px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    /* =======================
-       CTA / Contact
-       ======================= */
-    .cta-panel {
-      padding: 34px;
-      border-radius: 30px;
-      background:
-        radial-gradient(circle at top right, rgba(79,209,197,0.16), transparent 24%),
-        radial-gradient(circle at left center, rgba(122,168,255,0.14), transparent 24%),
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-    }
-
-    .cta-layout {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 26px;
-      align-items: center;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    .contact-card a {
-      color: var(--accent-3);
-      font-weight: 700;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .contact-list div {
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-      color: var(--muted);
-    }
-
-    footer {
-      padding: 34px 0 42px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      background: rgba(0,0,0,0.08);
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .footer-nav {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    /* =======================
-       Reveal animation
-       ======================= */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 700ms ease, transform 700ms ease;
-      will-change: opacity, transform;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* =======================
-       Responsive
-       ======================= */
-    @media (max-width: 1120px) {
-      .hero-grid,
-      .problem-layout,
-      .cta-layout,
-      .grid-2,
-      .dashboard-layout,
-      .dash-middle,
-      .dash-bottom {
-        grid-template-columns: 1fr;
-      }
-
-      .grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .grid-3,
-      .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .value-strip {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .steps {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .dash-top {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero-visual {
-        min-height: 660px;
-      }
-
-      .hero-dashboard {
-        width: calc(100% - 48px);
-        max-width: 410px;
-      }
-    }
-
-    @media (max-width: 860px) {
-      .nav-links,
-      .nav-cta {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: inline-flex;
-      }
-
-      .mobile-nav {
-        position: absolute;
-        top: calc(var(--nav-height) + 8px);
-        left: 16px;
-        right: 16px;
-        background: rgba(8, 14, 25, 0.98);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 20px;
-        box-shadow: var(--shadow);
-        padding: 14px;
-        display: none;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .mobile-nav a,
-      .mobile-nav button,
-      .mobile-nav .mobile-cta {
-        padding: 12px 14px;
-        border-radius: 12px;
-      }
-
-      .mobile-nav a {
-        color: var(--muted);
-        font-weight: 600;
-      }
-
-      .mobile-nav a:hover {
-        background: rgba(255,255,255,0.04);
-        color: var(--white);
-      }
-
-      .mobile-nav.open {
-        display: flex;
-      }
-
-      .hero {
-        padding-top: 40px;
-      }
-
-      .hero-visual {
-        min-height: 720px;
-      }
-
-      .wearables {
-        width: calc(100% - 48px);
-        right: 24px;
-      }
-
-      .hero-sensor {
-        left: 50%;
-        transform: translateX(-50%) rotate(10deg);
-        top: 320px;
-      }
-
-      .hero-phone {
-        left: 24px;
-      }
-
-      .steps {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .section {
-        padding: 84px 0;
-      }
-
-      .section-tight {
-        padding: 64px 0;
-      }
-
-      .grid-3,
-      .grid-4,
-      .pricing-grid,
-      .value-strip,
-      .steps,
-      .dash-top {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-visual {
-        min-height: 780px;
-        padding: 18px;
-      }
-
-      .hero-dashboard {
-        top: 18px;
-        right: 18px;
-        left: 18px;
-        width: auto;
-      }
-
-      .hero-phone {
-        width: 180px;
-        left: 18px;
-        bottom: 18px;
-      }
-
-      .hero-sensor {
-        top: 356px;
-        width: 112px;
-        height: 170px;
-      }
-
-      .sensor-core {
-        width: 66px;
-        height: 114px;
-      }
-
-      .wearables {
-        grid-template-columns: repeat(2, 1fr);
-        width: calc(100% - 36px);
-        right: 18px;
-        bottom: 18px;
-      }
-
-      .bar-row {
-        grid-template-columns: 1fr;
-      }
-
-      .hardware-note,
-      .footer-inner {
-        align-items: flex-start;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KineticSense — Modular Sports Motion Analysis</title>
+<meta name="description" content="KineticSense turns any training session into objective biomechanical feedback. One modular sensor, real-time technique scoring, and a coach dashboard built for academies and teams." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ============ COLOURS / TOKENS ============ */
+:root{
+  --bg:#080b09;
+  --bg-2:#0c110e;
+  --card:#10160f;
+  --card-2:#141b13;
+  --line:rgba(182,242,74,0.10);
+  --line-soft:rgba(255,255,255,0.07);
+  --text:#eef3ea;
+  --muted:#94a48f;
+  --white:#ffffff;
+  --lime:#b6f24a;
+  --lime-2:#86d80f;
+  --lime-glow:rgba(182,242,74,0.18);
+  --info:#5fb6ff;
+  --amber:#ffb84d;
+  --red:#ff6b6b;
+  --shadow:0 24px 60px rgba(0,0,0,0.5);
+  --radius:20px;
+  --radius-sm:13px;
+  --container:1220px;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Sora",system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(900px 520px at 82% -8%, rgba(182,242,74,0.10), transparent 60%),
+    radial-gradient(700px 480px at 8% 8%, rgba(95,182,255,0.06), transparent 60%),
+    linear-gradient(180deg,#070a08 0%, var(--bg) 40%, #060807 100%);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+.container{width:min(calc(100% - 36px),var(--container));margin:0 auto}
+.section{padding:104px 0;position:relative}
+.tight{padding:78px 0}
+
+/* ============ TYPE ============ */
+h1,h2,h3,h4{margin:0 0 14px;line-height:1.04;font-family:"Archivo",sans-serif;letter-spacing:-0.01em}
+.display{text-transform:uppercase;letter-spacing:0.01em;font-weight:900}
+h1{font-size:clamp(2.7rem,6.4vw,5rem);font-weight:900}
+h2{font-size:clamp(2rem,4.3vw,3.3rem);font-weight:900;text-transform:uppercase;letter-spacing:0.005em}
+h3{font-size:1.18rem;font-weight:800}
+p{margin:0 0 14px;color:var(--muted)}
+.lead{font-size:1.12rem;max-width:640px;color:#c4d0bd}
+.small{font-size:.9rem}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lime);font-weight:700;margin-bottom:16px}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--lime);box-shadow:0 0 12px var(--lime)}
+.section-head{max-width:780px;margin-bottom:46px}
+.lime{color:var(--lime)}
+
+/* ============ BUTTONS / PILLS ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:999px;border:1px solid transparent;cursor:pointer;font-weight:700;font-family:"Sora";transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--lime);color:#0a0f06;box-shadow:0 14px 34px var(--lime-glow)}
+.btn-primary:hover{box-shadow:0 18px 44px var(--lime-glow)}
+.btn-ghost{border-color:var(--line-soft);background:rgba(255,255,255,.03);color:var(--text)}
+.btn-ghost:hover{border-color:rgba(182,242,74,.35)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(182,242,74,.05);color:#cdd8c4;font-size:.84rem;font-weight:600}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime)}
+
+.card{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+/* ============ NAV ============ */
+.site-header{position:sticky;top:0;z-index:1000;backdrop-filter:blur(14px);background:rgba(8,11,9,.74);border-bottom:1px solid var(--line-soft)}
+.nav{height:74px;display:flex;align-items:center;gap:20px}
+.logo{display:inline-flex;align-items:center;gap:11px;font-family:"Archivo";font-weight:900;letter-spacing:.02em;font-size:1.12rem;color:var(--white);text-transform:uppercase}
+.logo-mark{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(135deg,rgba(182,242,74,.2),rgba(182,242,74,.04));border:1px solid rgba(182,242,74,.28)}
+.logo-mark svg{width:20px;height:20px;color:var(--lime)}
+.nav-links{display:flex;gap:26px;margin-left:auto}
+.nav-links a{color:var(--muted);font-weight:600;font-size:.93rem;transition:color .18s}
+.nav-links a:hover{color:var(--white)}
+.menu-toggle{display:none;width:46px;height:46px;border-radius:11px;border:1px solid var(--line-soft);background:rgba(255,255,255,.03);color:var(--white);cursor:pointer;align-items:center;justify-content:center}
+.menu-toggle svg{width:22px;height:22px}
+.mobile-nav{display:none}
+
+/* ============ HERO ============ */
+.hero{padding:64px 0 40px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:46px;align-items:center}
+.hero-copy .lead{font-size:1.14rem}
+.kbd-glow{color:var(--lime);text-shadow:0 0 26px var(--lime-glow)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 30px}
+.stat-row{display:flex;gap:26px;margin-top:30px;flex-wrap:wrap}
+.stat-row .s strong{font-family:"Archivo";font-size:1.9rem;font-weight:900;color:var(--white);display:block;line-height:1}
+.stat-row .s span{font-size:.82rem;color:var(--muted);letter-spacing:.04em}
+
+/* hero device */
+.device{position:relative;border-radius:26px;border:1px solid var(--line);background:linear-gradient(180deg,#0d130c,#0a0f08);box-shadow:var(--shadow);padding:18px;overflow:hidden}
+.device::before{content:"";position:absolute;inset:0;background:radial-gradient(420px 240px at 78% 0%,rgba(182,242,74,.14),transparent 60%);pointer-events:none}
+.dev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;position:relative}
+.dev-top .ttl{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--muted)}
+.live-dot{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.7rem;color:var(--lime);letter-spacing:.12em}
+.live-dot i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.dev-body{display:grid;grid-template-columns:150px 1fr;gap:14px;position:relative}
+.ring{width:138px;height:138px;border-radius:50%;display:grid;place-items:center;margin:0 auto;
+  background:radial-gradient(circle,#0b1009 60%,transparent 61%),conic-gradient(var(--lime) 0 84%, rgba(255,255,255,.08) 84% 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.ring strong{font-family:var(--mono);font-size:2.3rem;font-weight:700;color:var(--white)}
+.ring small{display:block;font-size:.62rem;letter-spacing:.16em;color:var(--lime);text-align:center;margin-top:-4px}
+.dev-bars{display:grid;gap:11px;align-content:center}
+.barline{display:grid;grid-template-columns:1fr auto;gap:6px;font-size:.78rem;color:var(--muted)}
+.barline .v{font-family:var(--mono);color:#d7e2cd}
+.track{grid-column:1/-1;height:7px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+.track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--lime-2),var(--lime))}
+.dev-foot{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;padding:6px 10px;border-radius:8px;border:1px solid var(--line);color:#cdd8c4;background:rgba(182,242,74,.05)}
+
+/* ============ MARQUEE strip ============ */
+.strip{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);background:rgba(182,242,74,.03);overflow:hidden}
+.strip-inner{display:flex;gap:48px;padding:16px 0;white-space:nowrap;animation:scroll 26s linear infinite;font-family:var(--mono);font-size:.82rem;letter-spacing:.1em;color:var(--muted)}
+.strip-inner span{display:inline-flex;gap:48px}
+.strip b{color:var(--lime)}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ DEMO ============ */
+#demo{scroll-margin-top:80px}
+.demo-frame{border:1px solid var(--line);border-radius:26px;background:linear-gradient(180deg,#0b100a,#080c07);box-shadow:var(--shadow);overflow:hidden}
+.demo-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid var(--line-soft);background:rgba(182,242,74,.04)}
+.demo-bar .grp{display:flex;align-items:center;gap:10px}
+.ctrl{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:11px;border:1px solid var(--line-soft);background:rgba(255,255,255,.03);color:var(--text);font-weight:600;cursor:pointer;transition:.16s;font-size:.92rem}
+.ctrl:hover{border-color:rgba(182,242,74,.4)}
+.ctrl.primary{background:var(--lime);color:#0a0f06;border-color:transparent;font-weight:800;box-shadow:0 10px 26px var(--lime-glow)}
+.ctrl.primary:active{transform:scale(.97)}
+.ctrl.on{border-color:var(--lime);color:var(--lime)}
+.ctrl:disabled{opacity:.4;cursor:not-allowed}
+.seg{display:flex;border:1px solid var(--line-soft);border-radius:11px;overflow:hidden}
+.seg button{height:42px;padding:0 14px;background:transparent;border:0;color:var(--muted);cursor:pointer;font-weight:600;font-size:.86rem;transition:.16s}
+.seg button.active{background:rgba(182,242,74,.14);color:var(--lime)}
+.demo-hint{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.04em}
+
+.demo-stage{display:grid;grid-template-columns:340px 1fr;gap:0}
+.athlete{padding:24px;border-right:1px solid var(--line-soft);background:radial-gradient(360px 220px at 50% -10%,rgba(182,242,74,.1),transparent 60%)}
+.ath-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ath-head .sport{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:#cdd8c4}
+.ath-sub{font-size:.78rem;color:var(--muted);margin-bottom:18px}
+.bigring{width:190px;height:190px;border-radius:50%;margin:6px auto 8px;display:grid;place-items:center;position:relative;transition:.5s}
+.bigring strong{font-family:var(--mono);font-size:3.4rem;font-weight:700;color:var(--white);line-height:1}
+.bigring em{font-style:normal;font-size:.7rem;letter-spacing:.18em;color:var(--muted);position:absolute;bottom:42px}
+.status{text-align:center;font-family:"Archivo";font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:1rem;margin-bottom:18px;transition:.3s}
+.metrics{display:grid;gap:14px}
+.metric .top{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted)}
+.metric .top .val{font-family:var(--mono);color:#dce7d2;font-weight:700}
+.metric .mt{height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:5px}
+.metric .mt i{display:block;height:100%;border-radius:99px;transition:width .5s ease}
+.flagbox{margin-top:16px;border-radius:12px;padding:12px 14px;font-size:.84rem;display:none;align-items:flex-start;gap:9px;border:1px solid rgba(255,107,107,.3);background:rgba(255,107,107,.1);color:#ffc7c7}
+.flagbox.show{display:flex;animation:popin .3s ease}
+@keyframes popin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.repcount{text-align:center;font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-top:16px;letter-spacing:.1em}
+
+/* coach side */
+.coach{padding:24px}
+.coach-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.coach-head .ttl{font-family:"Archivo";font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:1.05rem}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.kpi{border:1px solid var(--line-soft);border-radius:14px;padding:14px;background:rgba(255,255,255,.025)}
+.kpi label{display:block;font-size:.72rem;color:var(--muted);margin-bottom:7px;letter-spacing:.03em}
+.kpi .num{font-family:var(--mono);font-size:1.65rem;font-weight:700;color:var(--white);line-height:1}
+.kpi .delta{font-size:.74rem;font-weight:700;margin-top:5px}
+.up{color:var(--lime)} .neu{color:var(--amber)}
+.coach-cols{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+.panel{border:1px solid var(--line-soft);border-radius:16px;padding:16px;background:rgba(255,255,255,.022)}
+.panel h4{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:var(--mono);font-weight:500}
+.chart{position:relative;height:188px;margin-top:8px;border-radius:12px;background:
+  linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:100% 25%,11.1% 100%;overflow:hidden}
+.chart svg{position:absolute;inset:0;width:100%;height:100%}
+.logwrap{max-height:300px;overflow:auto}
+.log{width:100%;border-collapse:collapse;font-size:.82rem}
+.log th{text-align:left;font-family:var(--mono);font-weight:500;font-size:.68rem;letter-spacing:.06em;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line-soft);position:sticky;top:0;background:#0c110a}
+.log td{padding:8px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.log .sc{font-family:var(--mono);font-weight:700}
+.lbl-btns{display:flex;gap:6px}
+.mini{height:28px;padding:0 9px;border-radius:8px;border:1px solid var(--line-soft);background:transparent;color:var(--muted);cursor:pointer;font-size:.74rem;font-weight:700;transition:.14s}
+.mini.ok:hover,.mini.ok.sel{border-color:var(--lime);color:var(--lime);background:rgba(182,242,74,.12)}
+.mini.no:hover,.mini.no.sel{border-color:var(--red);color:var(--red);background:rgba(255,107,107,.12)}
+.log tr.flagged td{background:rgba(255,107,107,.05)}
+.model-strip{margin-top:16px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px;background:rgba(182,242,74,.05)}
+.model-strip .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:rgba(182,242,74,.12);border:1px solid rgba(182,242,74,.25);color:var(--lime);flex-shrink:0}
+.model-strip .ic svg{width:22px;height:22px}
+.model-strip .txt{flex:1}
+.model-strip strong{color:var(--white);font-size:.95rem}
+.model-strip.pulse{animation:flash 1.1s ease}
+@keyframes flash{0%{box-shadow:0 0 0 0 var(--lime-glow)}40%{box-shadow:0 0 0 8px rgba(182,242,74,0)}100%{box-shadow:0 0 0 0 rgba(182,242,74,0)}}
+
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);background:#0d130b;border:1px solid var(--lime);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 30px var(--lime-glow);opacity:0;pointer-events:none;transition:.35s;z-index:2000;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast .ic{color:var(--lime)}
+.toast b{color:var(--white)}
+
+/* empty state overlay */
+.demo-empty{position:absolute;inset:0;display:grid;place-items:center;background:rgba(8,11,9,.82);backdrop-filter:blur(3px);z-index:5;border-radius:0;text-align:center;padding:30px}
+.demo-empty .inner{max-width:420px}
+.demo-stage{position:relative}
+
+/* ============ GRIDS ============ */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.fcard{padding:24px;height:100%}
+.fcard .ico{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(182,242,74,.16),rgba(182,242,74,.03));border:1px solid var(--line);color:var(--lime);margin-bottom:16px;font-family:var(--mono);font-weight:700}
+.fcard .ico svg{width:24px;height:24px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.step{padding:22px;position:relative}
+.step .n{font-family:var(--mono);font-size:.8rem;color:var(--lime);letter-spacing:.1em;margin-bottom:12px}
+
+/* comparison */
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line-soft);border-radius:20px;box-shadow:var(--shadow);background:rgba(255,255,255,.02)}
+table.cmp{width:100%;border-collapse:collapse;min-width:760px}
+.cmp th,.cmp td{padding:16px 16px;border-bottom:1px solid rgba(255,255,255,.05);text-align:left}
+.cmp thead th{font-family:var(--mono);font-weight:500;font-size:.78rem;letter-spacing:.05em;color:var(--muted);background:rgba(255,255,255,.02)}
+.cmp tbody td:first-child{color:#d6e1cd;font-weight:600}
+.cmp .ks{background:rgba(182,242,74,.06)}
+.cmp .ks td:first-child{color:var(--lime);font-weight:800}
+.ck{color:var(--lime);font-weight:800}.cx{color:var(--red);font-weight:800}.cp{color:var(--amber);font-weight:800}
+.cmp tr:last-child td{border-bottom:0}
+
+/* pricing */
+.price-grid{display:grid;grid-template-columns:0.8fr repeat(3,1fr);gap:18px;align-items:stretch}
+.pcard{padding:24px;height:100%;position:relative;display:flex;flex-direction:column}
+.pcard.hw{background:linear-gradient(180deg,#0d130c,#0a0f08);border-color:var(--line)}
+.pcard.feat{border-color:rgba(182,242,74,.4);box-shadow:0 0 0 1px rgba(182,242,74,.15),var(--shadow)}
+.pcard .tier{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.pcard.feat .tier{color:var(--lime)}
+.pcard .amt{font-family:"Archivo";font-weight:900;font-size:2.5rem;color:var(--white);line-height:1}
+.pcard .amt span{font-size:.95rem;color:var(--muted);font-family:"Sora";font-weight:600}
+.plist{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:9px}
+.plist li{position:relative;padding-left:22px;font-size:.9rem;color:var(--muted)}
+.plist li::before{content:"";position:absolute;left:0;top:8px;width:10px;height:10px;border-radius:3px;background:var(--lime);opacity:.85}
+.badge{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;padding:5px 9px;border-radius:8px;background:rgba(182,242,74,.14);color:var(--lime);border:1px solid rgba(182,242,74,.3)}
+.rental{margin-top:18px;padding:16px 20px;border:1px dashed var(--line);border-radius:14px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;background:rgba(182,242,74,.03)}
+
+/* contact / cta */
+.cta{padding:40px;border-radius:26px;background:radial-gradient(600px 300px at 85% 0%,rgba(182,242,74,.14),transparent 60%),linear-gradient(180deg,#0e150c,#0a0f08);border:1px solid var(--line)}
+.cta-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.contact-list{display:grid;gap:10px;margin-top:14px}
+.contact-list div{padding:13px 15px;border-radius:12px;border:1px solid var(--line-soft);background:rgba(255,255,255,.025);color:var(--muted);font-size:.92rem}
+footer{padding:34px 0 46px;border-top:1px solid var(--line-soft);background:rgba(0,0,0,.18)}
+.foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
+.foot-nav{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1080px){
+  .hero-grid,.cta-grid{grid-template-columns:1fr}
+  .demo-stage{grid-template-columns:1fr}
+  .athlete{border-right:0;border-bottom:1px solid var(--line-soft)}
+  .coach-cols{grid-template-columns:1fr}
+  .grid-4,.steps{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .price-grid{grid-template-columns:repeat(2,1fr)}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .nav-links{display:none}.menu-toggle{display:inline-flex}
+  .mobile-nav{position:absolute;top:78px;left:16px;right:16px;background:#0c110a;border:1px solid var(--line-soft);border-radius:18px;box-shadow:var(--shadow);padding:12px;display:none;flex-direction:column;gap:6px}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{padding:11px 13px;border-radius:10px;color:var(--muted)}
+  .grid-3,.grid-4,.steps,.price-grid{grid-template-columns:1fr}
+  .demo-hint{display:none}
+  .section{padding:78px 0}
+}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a href="#top" class="logo" aria-label="KineticSense home">
-        <span class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M6 17c2.6-5.6 5.1-8.4 12-10" />
-            <path d="M6 13c2.4 1.8 4.8 2.7 8 3" />
-            <circle cx="18" cy="7" r="2.6" fill="currentColor" stroke="none"></circle>
-          </svg>
-        </span>
-        <span>KineticSense</span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#product">Product</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#benefits">Benefits</a>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#sports">Sports</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <a href="#pilot" class="btn btn-primary nav-cta">Request a Demo</a>
-
-      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"></path>
-        </svg>
-      </button>
-
-      <div class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
-        <a href="#product">Product</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#benefits">Benefits</a>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#sports">Sports</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-        <a href="#pilot" class="btn btn-primary mobile-cta">Request a Demo</a>
-      </div>
+<header class="site-header">
+  <div class="container nav">
+    <a href="#top" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 14 12 6 20"/><path d="M13 4 21 12 13 20"/></svg></span>
+      KineticSense
+    </a>
+    <nav class="nav-links">
+      <a href="#demo">Live Demo</a>
+      <a href="#product">Product</a>
+      <a href="#tech">Technology</a>
+      <a href="#compare">Compare</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#demo" class="btn btn-primary" style="margin-left:6px">▶ Launch Demo</a>
+    <button class="menu-toggle" id="mt" aria-label="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg></button>
+    <div class="mobile-nav" id="mn">
+      <a href="#demo">Live Demo</a><a href="#product">Product</a><a href="#tech">Technology</a><a href="#compare">Compare</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main id="top">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-grid">
-          <div class="hero-copy reveal">
-            <span class="eyebrow">Performance Analytics Platform</span>
-            <!-- EDIT: TEXT -->
-            <h1>
-              Objective motion feedback for
-              <span class="gradient-text">modern sports organizations</span>
-            </h1>
-            <!-- EDIT: TEXT -->
-            <p class="lead">
-              KineticSense helps academies, university programs, and professional teams turn
-              training sessions into structured biomechanical insight through one modular wearable platform.
-              Capture movement data, score technique in real time, and review athlete trends in a coach-ready dashboard.
-            </p>
-
-            <div class="hero-meta">
-              <span class="pill">Detachable 9-DOF sensor</span>
-              <span class="pill">Hardware + SaaS model</span>
-              <span class="pill">Basketball, Volleyball, Tennis, Football</span>
-            </div>
-
-            <div class="btn-group">
-              <a href="#pilot" class="btn btn-primary">Request a Demo</a>
-              <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
-            </div>
-
-            <p class="hero-highlight">
-              Designed for academies and team environments that need more practical technique analysis
-              than fixed camera systems and more actionable movement insight than basic wearables.
-            </p>
-          </div>
-
-          <div class="hero-visual reveal" aria-label="KineticSense product concept mockup">
-            <div class="mock-grid"></div>
-
-            <div class="hero-dashboard">
-              <div class="window-dots" aria-hidden="true">
-                <span></span><span></span><span></span>
-              </div>
-              <div class="dashboard-head">
-                <div>
-                  <h4>Coach Dashboard</h4>
-                  <p class="small">Session overview • Team performance insights</p>
-                </div>
-                <span class="pill">Live sync</span>
-              </div>
-              <div class="dashboard-kpis">
-                <div class="mini-stat">
-                  <strong>87</strong>
-                  <span class="small">Technique score</span>
-                </div>
-                <div class="mini-stat">
-                  <strong>92%</strong>
-                  <span class="small">Consistency</span>
-                </div>
-                <div class="mini-stat">
-                  <strong>3</strong>
-                  <span class="small">Risk flags</span>
-                </div>
-                <div class="mini-stat">
-                  <strong>14</strong>
-                  <span class="small">Coach notes</span>
-                </div>
-              </div>
-              <div class="mini-chart" aria-hidden="true">
-                <span style="height: 36%"></span>
-                <span style="height: 52%"></span>
-                <span style="height: 44%"></span>
-                <span style="height: 70%"></span>
-                <span style="height: 65%"></span>
-                <span style="height: 88%"></span>
-                <span style="height: 78%"></span>
-              </div>
-            </div>
-
-            <div class="hero-phone">
-              <div class="phone-notch"></div>
-              <div class="phone-screen">
-                <span class="pill">Training Session</span>
-                <div class="score-ring" aria-label="Technique score 78">
-                  <strong>78</strong>
-                </div>
-                <div class="score-list">
-                  <div class="score-item">
-                    <span>Form quality</span>
-                    <div class="score-bar"><span style="width: 78%"></span></div>
-                  </div>
-                  <div class="score-item">
-                    <span>Release timing</span>
-                    <div class="score-bar"><span style="width: 72%"></span></div>
-                  </div>
-                  <div class="score-item">
-                    <span>Movement stability</span>
-                    <div class="score-bar"><span style="width: 84%"></span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="hero-sensor" aria-label="Detachable sensor module">
-              <div class="sensor-core"></div>
-            </div>
-
-            <div class="wearables">
-              <div class="wearable">
-                <div class="wearable-icon">A</div>
-                <span>Arm sleeve</span>
-              </div>
-              <div class="wearable">
-                <div class="wearable-icon">W</div>
-                <span>Wrist band</span>
-              </div>
-              <div class="wearable">
-                <div class="wearable-icon">S</div>
-                <span>Shoulder band</span>
-              </div>
-              <div class="wearable">
-                <div class="wearable-icon">K</div>
-                <span>Knee band</span>
-              </div>
-              <div class="wearable">
-                <div class="wearable-icon">N</div>
-                <span>Ankle band</span>
-              </div>
-              <div class="wearable">
-                <div class="wearable-icon">C</div>
-                <span>Compression shirt</span>
-              </div>
-            </div>
-          </div>
+<main id="top">
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Modular Sports Motion Analysis</span>
+        <!-- EDIT: hero headline -->
+        <h1 class="display">Pro-grade<br><span class="kbd-glow">biomechanics</span><br>for every team</h1>
+        <p class="lead">One detachable 9-DOF sensor. Real-time technique scoring on the court. A coach dashboard that turns every session into objective, comparable data — at a price academies can actually reach.</p>
+        <div class="hero-meta">
+          <span class="pill"><span class="dot"></span>1 sensor · 6 accessories · 4 sports</span>
+          <span class="pill">Hardware + SaaS</span>
         </div>
-
-        <div class="value-strip reveal" aria-label="Key value points">
-          <div class="value-item">
-            <div class="icon" aria-hidden="true">◉</div>
-            <div>
-              <strong>Modular hardware</strong>
-              <span>One detachable sensor across multiple accessories</span>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="icon" aria-hidden="true">↻</div>
-            <div>
-              <strong>Real-time analysis</strong>
-              <span>Immediate technique scoring during training</span>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="icon" aria-hidden="true">▣</div>
-            <div>
-              <strong>Coach dashboard</strong>
-              <span>Reports, trends, notes, and athlete tracking</span>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="icon" aria-hidden="true">✦</div>
-            <div>
-              <strong>Multi-sport support</strong>
-              <span>Basketball, volleyball, tennis, and football</span>
-            </div>
-          </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="#demo" class="btn btn-primary">▶ Launch the live demo</a>
+          <a href="#product" class="btn btn-ghost">How it works</a>
+        </div>
+        <div class="stat-row">
+          <div class="s"><strong>$299</strong><span>hardware kit</span></div>
+          <div class="s"><strong>&lt;50ms</strong><span>live feedback</span></div>
+          <div class="s"><strong>$50K+</strong><span>vs. camera systems</span></div>
         </div>
       </div>
-    </section>
 
-    <!-- Problem -->
-    <section class="section section-tight" id="problem">
-      <div class="container">
-        <div class="problem-layout">
-          <div class="problem-panel card reveal">
-            <span class="eyebrow">The Problem</span>
-            <!-- EDIT: TEXT -->
-            <h2>Coaching quality is rising, but practical movement insight is still hard to access</h2>
-            <p class="lead">
-              Many sports organizations know technique matters, but they still rely on observation,
-              fragmented tools, or systems that are too expensive for regular team use.
-            </p>
-
-            <div class="problem-list">
-              <div class="problem-item">
-                <div class="problem-badge">1</div>
-                <div>
-                  <strong>Technique feedback is difficult to quantify consistently</strong>
-                  <p class="small">Coaches often see movement issues, but objective comparison across sessions and athletes remains limited.</p>
-                </div>
-              </div>
-              <div class="problem-item">
-                <div class="problem-badge">2</div>
-                <div>
-                  <strong>Existing systems are often too expensive or too rigid</strong>
-                  <p class="small">Venue-fixed camera setups and premium performance platforms can be out of reach for growing academies and university programs.</p>
-                </div>
-              </div>
-              <div class="problem-item">
-                <div class="problem-badge">3</div>
-                <div>
-                  <strong>Many wearables do not offer joint-level technique insight</strong>
-                  <p class="small">Physiological or load-focused trackers may help with exertion data, but not with movement quality itself.</p>
-                </div>
-              </div>
-              <div class="problem-item">
-                <div class="problem-badge">4</div>
-                <div>
-                  <strong>Institutions need practical tools, not research-only systems</strong>
-                  <p class="small">Academies need solutions that fit real training routines, team workflows, and budget constraints.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="problem-stats reveal">
-            <div class="problem-quote card">
-              <div>
-                <div class="quote-mark">“</div>
-                <h3>What coaches need is not more raw data.</h3>
-                <p class="lead small">
-                  They need usable movement feedback that supports athlete development, scales across teams,
-                  and fits naturally into training environments.
-                </p>
-              </div>
-              <div class="pill">Built for decision makers, coaches, and performance staff</div>
-            </div>
-
-            <div class="grid-2">
-              <div class="problem-card card">
-                <div class="card-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M4 18h16M7 14l3-3 3 2 4-5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                </div>
-                <h3>Performance insight gap</h3>
-                <p>Training quality is high, but movement evaluation is still too subjective in many environments.</p>
-              </div>
-
-              <div class="problem-card card">
-                <div class="card-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <rect x="4" y="5" width="16" height="12" rx="2"></rect>
-                    <path d="M8 19h8" stroke-linecap="round"></path>
-                  </svg>
-                </div>
-                <h3>Infrastructure friction</h3>
-                <p>Fixed systems can require specific venues, setup complexity, or investment levels that limit everyday adoption.</p>
-              </div>
-
-              <div class="problem-card card">
-                <div class="card-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M6 7h12M6 12h7M6 17h10" stroke-linecap="round"></path>
-                  </svg>
-                </div>
-                <h3>Team scalability challenge</h3>
-                <p>Organizations need tools that work across athletes, positions, and sports without multiplying hardware complexity.</p>
-              </div>
-
-              <div class="problem-card card">
-                <div class="card-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M12 4v16M4 12h16" stroke-linecap="round"></path>
-                  </svg>
-                </div>
-                <h3>Data without workflow is not enough</h3>
-                <p>Coaches need reports, trend visibility, and annotation tools that support action after the session ends.</p>
-              </div>
-            </div>
-          </div>
+      <!-- hero device preview -->
+      <div class="device reveal">
+        <div class="dev-top">
+          <span class="ttl">BASKETBALL · JUMP SHOT · WRIST BAND</span>
+          <span class="live-dot"><i></i>LIVE</span>
         </div>
-      </div>
-    </section>
-
-    <!-- Solution / Product -->
-    <section class="section" id="product">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">Solution</span>
-          <!-- EDIT: TEXT -->
-          <h2>KineticSense is a modular sports motion analysis platform built for team environments</h2>
-          <p class="lead">
-            Instead of locking analysis into one venue, one body position, or one sport,
-            KineticSense combines a detachable IMU sensor, sport-specific accessories,
-            mobile real-time feedback, and a coach dashboard in one institution-friendly platform.
-          </p>
-        </div>
-
-        <div class="grid-3">
-          <article class="feature-card card reveal">
-            <div class="card-icon" aria-hidden="true">01</div>
-            <h3>Detachable 9-DOF sensor</h3>
-            <p>
-              A compact motion sensing module captures training data and moves between accessories
-              instead of requiring separate dedicated hardware for every use case.
-            </p>
-            <ul>
-              <li>Single sensor concept</li>
-              <li>Detachable and reusable across accessories</li>
-              <li>Designed for practical deployment</li>
-            </ul>
-          </article>
-
-          <article class="feature-card card reveal">
-            <div class="card-icon" aria-hidden="true">02</div>
-            <h3>Multiple textile accessories</h3>
-            <p>
-              Arm, wrist, shoulder, knee, ankle, and shirt-based options allow different movement
-              patterns to be captured depending on sport and coaching need.
-            </p>
-            <ul>
-              <li>Flexible body placement</li>
-              <li>Sport-specific usage options</li>
-              <li>Supports broader team workflows</li>
-            </ul>
-          </article>
-
-          <article class="feature-card card reveal">
-            <div class="card-icon" aria-hidden="true">03</div>
-            <h3>Mobile real-time feedback</h3>
-            <p>
-              During training, athletes and staff can view technique-oriented session feedback
-              without waiting for a full post-session analysis cycle.
-            </p>
-            <ul>
-              <li>Live session visibility</li>
-              <li>Technique score output</li>
-              <li>Faster training adjustments</li>
-            </ul>
-          </article>
-
-          <article class="feature-card card reveal">
-            <div class="card-icon" aria-hidden="true">04</div>
-            <h3>Coach dashboard</h3>
-            <p>
-              After the session, coaches can review athlete reports, follow trend development,
-              compare sessions, and add performance notes inside a team-ready interface.
-            </p>
-            <ul>
-              <li>Team-level reporting</li>
-              <li>Trend visualization</li>
-              <li>Session review workflow</li>
-            </ul>
-          </article>
-
-          <article class="feature-card card reveal">
-            <div class="card-icon" aria-hidden="true">05</div>
-            <h3>Sport-adaptive AI</h3>
-            <p>
-              KineticSense is designed to route movement analysis logic based on sport context and
-              accessory position, reducing setup friction for coaches.
-            </p>
-            <ul>
-              <li>Context-aware analysis logic</li>
-              <li>More relevant technique scoring</li>
-              <li>Simpler coach experience</li>
-            </ul>
-          </article>
-
-          <article class="feature-card card reveal">
-            <div class="card-icon" aria-hidden="true">06</div>
-            <h3>Coach annotation loop</h3>
-            <p>
-              Coaches can label repetitions and add notes, creating a feedback loop that improves
-              future analysis quality over time.
-            </p>
-            <ul>
-              <li>Human-in-the-loop improvement</li>
-              <li>Institutional learning value</li>
-              <li>Supports long-term product accuracy</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- How it works -->
-    <section class="section section-tight" id="how-it-works">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">How It Works</span>
-          <h2>From wearable setup to coach-ready reporting in six steps</h2>
-          <p class="lead">
-            KineticSense is designed to fit how organizations already train: quick setup,
-            structured session capture, and clear post-session review.
-          </p>
-        </div>
-
-        <div class="steps">
-          <article class="step card reveal">
-            <div class="step-number">1</div>
-            <h3>Attach the sensor</h3>
-            <p>Choose the appropriate textile accessory for the athlete and drill, then attach the detachable motion module.</p>
-          </article>
-
-          <article class="step card reveal">
-            <div class="step-number">2</div>
-            <h3>Start the session</h3>
-            <p>Open the mobile app, begin the training session, and connect the athlete setup with minimal friction.</p>
-          </article>
-
-          <article class="step card reveal">
-            <div class="step-number">3</div>
-            <h3>Capture movement data</h3>
-            <p>The system streams motion data during training and prepares it for technique-oriented analysis.</p>
-          </article>
-
-          <article class="step card reveal">
-            <div class="step-number">4</div>
-            <h3>Receive technique scoring</h3>
-            <p>Real-time session feedback helps staff review form quality and consistency while the athlete is still training.</p>
-          </article>
-
-          <article class="step card reveal">
-            <div class="step-number">5</div>
-            <h3>Review athlete reports</h3>
-            <p>Coaches access session summaries, trend views, and performance indicators inside the web dashboard.</p>
-          </article>
-
-          <article class="step card reveal">
-            <div class="step-number">6</div>
-            <h3>Improve future analysis</h3>
-            <p>Coach notes and repetition annotations support a stronger feedback loop for future scoring and reporting.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Benefits -->
-    <section class="section" id="benefits">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">Benefits for Buyers</span>
-          <h2>Built to support both coaching quality and institutional decision making</h2>
-          <p class="lead">
-            KineticSense is not just a device. It is a practical performance workflow for academies,
-            teams, and programs that want more objective movement insight without overbuilding infrastructure.
-          </p>
-        </div>
-
-        <div class="grid-3">
-          <article class="benefit-card card reveal">
-            <div class="card-icon" aria-hidden="true">✓</div>
-            <h3>More objective technique evaluation</h3>
-            <p>Support coach observation with structured movement scoring and clearer session-to-session comparison.</p>
-          </article>
-
-          <article class="benefit-card card reveal">
-            <div class="card-icon" aria-hidden="true">✓</div>
-            <h3>Better athlete development tracking</h3>
-            <p>Monitor progress trends over time instead of relying only on memory, scattered notes, or one-off assessments.</p>
-          </article>
-
-          <article class="benefit-card card reveal">
-            <div class="card-icon" aria-hidden="true">✓</div>
-            <h3>Easier coach decision support</h3>
-            <p>Use reports, flags, and annotations to prioritize attention and communicate athlete development more clearly.</p>
-          </article>
-
-          <article class="benefit-card card reveal">
-            <div class="card-icon" aria-hidden="true">✓</div>
-            <h3>Lower cost than large fixed systems</h3>
-            <p>Approach technique-level performance insight with a more accessible operational and pricing model.</p>
-          </article>
-
-          <article class="benefit-card card reveal">
-            <div class="card-icon" aria-hidden="true">✓</div>
-            <h3>Flexible across sports and body positions</h3>
-            <p>Reuse the core module across different accessories and training contexts instead of purchasing isolated devices.</p>
-          </article>
-
-          <article class="benefit-card card reveal">
-            <div class="card-icon" aria-hidden="true">✓</div>
-            <h3>Scalable for teams and institutions</h3>
-            <p>Structured workflows and dashboard visibility make it easier to expand from pilot use to team-wide adoption.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Dashboard -->
-    <section class="section" id="dashboard">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">Coach Dashboard</span>
-          <h2>A believable, coach-ready interface for session review and athlete tracking</h2>
-          <p class="lead">
-            The dashboard is where KineticSense becomes operational for teams: technique scores,
-            movement consistency, fatigue patterns, review flags, and coach notes in one workflow.
-          </p>
-        </div>
-
-        <div class="dashboard-shell reveal">
-          <div class="window-dots" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-
-          <div class="dashboard-layout">
-            <aside class="dashboard-sidebar">
-              <div class="sidebar-block">
-                <h3 style="margin-bottom:8px;">Team Workspace</h3>
-                <p class="small">Basketball Academy • Performance Unit</p>
-              </div>
-
-              <div class="sidebar-block">
-                <span class="pill">Session filters</span>
-                <div class="team-list">
-                  <div class="team-user"><span class="avatar">A</span> All athletes</div>
-                  <div class="team-user"><span class="avatar">G</span> Guards</div>
-                  <div class="team-user"><span class="avatar">F</span> Forwards</div>
-                  <div class="team-user"><span class="avatar">R</span> Rehab watchlist</div>
-                </div>
-              </div>
-
-              <div class="sidebar-block">
-                <h3 style="margin-bottom:8px;">Recent athletes</h3>
-                <div class="team-list">
-                  <div class="team-user"><span class="avatar">EA</span> E. Arda</div>
-                  <div class="team-user"><span class="avatar">LY</span> L. Yaman</div>
-                  <div class="team-user"><span class="avatar">NS</span> N. Sarı</div>
-                  <div class="team-user"><span class="avatar">BD</span> B. Demir</div>
-                </div>
-              </div>
-            </aside>
-
-            <div class="dashboard-main">
-              <div class="dash-top">
-                <div class="metric-card">
-                  <span class="metric-label">Athlete technique score</span>
-                  <div class="metric-value">87</div>
-                  <span class="trend-up">↑ +6.2% vs. last week</span>
-                </div>
-                <div class="metric-card">
-                  <span class="metric-label">Movement consistency</span>
-                  <div class="metric-value">92%</div>
-                  <span class="trend-up">Stable session profile</span>
-                </div>
-                <div class="metric-card">
-                  <span class="metric-label">Fatigue trend</span>
-                  <div class="metric-value">Moderate</div>
-                  <span class="trend-neutral">Monitor late-session drop</span>
-                </div>
-                <div class="metric-card">
-                  <span class="metric-label">Risk indicator flags</span>
-                  <div class="metric-value">3</div>
-                  <span class="trend-neutral">Review by coaching staff</span>
-                </div>
-              </div>
-
-              <div class="dash-middle">
-                <section class="panel">
-                  <div class="panel-head">
-                    <div>
-                      <h3>Technique score trend</h3>
-                      <p class="small">Last 8 sessions</p>
-                    </div>
-                    <span class="pill">Athlete report</span>
-                  </div>
-
-                  <div class="line-chart" aria-label="Trend chart">
-                    <svg viewBox="0 0 600 220" preserveAspectRatio="none" aria-hidden="true">
-                      <defs>
-                        <linearGradient id="lineGrad" x1="0" x2="1">
-                          <stop offset="0%" stop-color="#4fd1c5"></stop>
-                          <stop offset="100%" stop-color="#7aa8ff"></stop>
-                        </linearGradient>
-                        <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1">
-                          <stop offset="0%" stop-color="rgba(79,209,197,0.35)"></stop>
-                          <stop offset="100%" stop-color="rgba(79,209,197,0.02)"></stop>
-                        </linearGradient>
-                      </defs>
-                      <path d="M0,170 C50,165 75,120 120,125 C170,130 185,92 235,98 C285,104 315,68 365,75 C420,82 450,42 505,48 C545,52 570,25 600,28 L600,220 L0,220 Z" fill="url(#areaGrad)"></path>
-                      <path d="M0,170 C50,165 75,120 120,125 C170,130 185,92 235,98 C285,104 315,68 365,75 C420,82 450,42 505,48 C545,52 570,25 600,28" fill="none" stroke="url(#lineGrad)" stroke-width="4" stroke-linecap="round"></path>
-                    </svg>
-                  </div>
-                </section>
-
-                <section class="panel">
-                  <div class="panel-head">
-                    <div>
-                      <h3>Movement review flags</h3>
-                      <p class="small">Biomechanical coaching guidance</p>
-                    </div>
-                    <span class="pill">Not diagnosis</span>
-                  </div>
-
-                  <div class="flag-list">
-                    <div class="flag-item">
-                      <div>
-                        <strong>Shoulder loading asymmetry</strong>
-                        <p class="small">Observed during high-intensity repetitions</p>
-                      </div>
-                      <span class="status-tag status-medium">Monitor</span>
-                    </div>
-                    <div class="flag-item">
-                      <div>
-                        <strong>Knee alignment deviation</strong>
-                        <p class="small">Recommend drill review and session comparison</p>
-                      </div>
-                      <span class="status-tag status-review">Review</span>
-                    </div>
-                    <div class="flag-item">
-                      <div>
-                        <strong>Late-session stability drop</strong>
-                        <p class="small">Movement quality remains acceptable but trending lower</p>
-                      </div>
-                      <span class="status-tag status-low">Low</span>
-                    </div>
-                  </div>
-                </section>
-              </div>
-
-              <div class="dash-bottom">
-                <section class="panel">
-                  <div class="panel-head">
-                    <div>
-                      <h3>Team movement consistency</h3>
-                      <p class="small">Current drill set comparison</p>
-                    </div>
-                  </div>
-
-                  <div class="bar-group">
-                    <div class="bar-row">
-                      <span>Basketball shooting</span>
-                      <div class="bar-track"><span style="width: 84%"></span></div>
-                      <strong>84%</strong>
-                    </div>
-                    <div class="bar-row">
-                      <span>Jump landing</span>
-                      <div class="bar-track"><span style="width: 76%"></span></div>
-                      <strong>76%</strong>
-                    </div>
-                    <div class="bar-row">
-                      <span>Serve preparation</span>
-                      <div class="bar-track"><span style="width: 81%"></span></div>
-                      <strong>81%</strong>
-                    </div>
-                    <div class="bar-row">
-                      <span>Acceleration form</span>
-                      <div class="bar-track"><span style="width: 73%"></span></div>
-                      <strong>73%</strong>
-                    </div>
-                  </div>
-                </section>
-
-                <section class="panel">
-                  <div class="panel-head">
-                    <div>
-                      <h3>Coach notes and annotations</h3>
-                      <p class="small">Human-in-the-loop review</p>
-                    </div>
-                  </div>
-
-                  <div class="notes">
-                    <div class="note-item">
-                      <strong>Session note 14</strong>
-                      <p class="small">Good improvement in release timing. Recheck movement stability under fatigue.</p>
-                    </div>
-                    <div class="note-item">
-                      <strong>Annotation 09</strong>
-                      <p class="small">Mark repetition cluster 3 as correct form for future model refinement.</p>
-                    </div>
-                    <div class="note-item">
-                      <strong>Program action</strong>
-                      <p class="small">Add mobility-focused warm-up variation before next comparison session.</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sports -->
-    <section class="section section-tight" id="sports">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">Sports and Use Cases</span>
-          <h2>Designed for core training workflows across multiple sports</h2>
-          <p class="lead">
-            KineticSense is built to support practical movement analysis in sports environments where
-            technique, repetition quality, and athlete development matter.
-          </p>
-        </div>
-
-        <div class="grid-4">
-          <article class="sport-card card reveal">
-            <div class="card-icon" aria-hidden="true">🏀</div>
-            <h3>Basketball</h3>
-            <p>Use cases include shooting mechanics, jump patterns, landing control, and repeatability across drills and sessions.</p>
-          </article>
-
-          <article class="sport-card card reveal">
-            <div class="card-icon" aria-hidden="true">🏐</div>
-            <h3>Volleyball</h3>
-            <p>Support serve motion review, shoulder loading observations, and movement consistency during repeated technical work.</p>
-          </article>
-
-          <article class="sport-card card reveal">
-            <div class="card-icon" aria-hidden="true">🎾</div>
-            <h3>Tennis</h3>
-            <p>Review stroke preparation and movement rhythm while giving coaches clearer insight into technique stability over time.</p>
-          </article>
-
-          <article class="sport-card card reveal">
-            <div class="card-icon" aria-hidden="true">⚽</div>
-            <h3>Football</h3>
-            <p>Track acceleration-related movement patterns, lower-body consistency, and practical athlete monitoring during training blocks.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Differentiation -->
-    <section class="section" id="comparison">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">Positioning</span>
-          <h2>A more accessible institutional alternative to common categories in sports tech</h2>
-          <p class="lead">
-            KineticSense is positioned as a balanced middle ground: more flexible than venue-fixed systems,
-            more technique-oriented than physiological trackers, and more institution-ready than single-purpose wearables.
-          </p>
-        </div>
-
-        <div class="comparison-wrap reveal">
-          <table class="comparison" aria-label="Comparison table">
-            <thead>
-              <tr>
-                <th>Capability</th>
-                <th>KineticSense</th>
-                <th>Fixed camera systems</th>
-                <th>Single-sport wearables</th>
-                <th>Physiological trackers</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Portable deployment</td>
-                <td><span class="check">✓</span> Designed for practical training use</td>
-                <td><span class="cross">✕</span> Often venue-dependent</td>
-                <td><span class="partial">△</span> Portable, but typically narrow in use</td>
-                <td><span class="check">✓</span> Wearable and portable</td>
-              </tr>
-              <tr>
-                <td>Technique-focused motion analysis</td>
-                <td><span class="check">✓</span> Core product focus</td>
-                <td><span class="partial">△</span> Possible, but often high-cost and infrastructure-heavy</td>
-                <td><span class="partial">△</span> Usually limited by device purpose</td>
-                <td><span class="cross">✕</span> Not the primary output</td>
-              </tr>
-              <tr>
-                <td>Multi-accessory modularity</td>
-                <td><span class="check">✓</span> One sensor, multiple placements</td>
-                <td><span class="cross">✕</span> Not wearable-based</td>
-                <td><span class="cross">✕</span> Usually single-purpose hardware</td>
-                <td><span class="cross">✕</span> Not accessory modular</td>
-              </tr>
-              <tr>
-                <td>Coach dashboard workflow</td>
-                <td><span class="check">✓</span> Team review and reporting</td>
-                <td><span class="partial">△</span> Varies by provider</td>
-                <td><span class="partial">△</span> Often consumer-oriented</td>
-                <td><span class="partial">△</span> Limited for technique review</td>
-              </tr>
-              <tr>
-                <td>Affordability for academies</td>
-                <td><span class="check">✓</span> Positioned for institutional accessibility</td>
-                <td><span class="cross">✕</span> Commonly expensive to deploy</td>
-                <td><span class="partial">△</span> Entry cost may be lower, but broader institutional fit is limited</td>
-                <td><span class="partial">△</span> Lower hardware cost, different insight category</td>
-              </tr>
-              <tr>
-                <td>Cross-sport institutional value</td>
-                <td><span class="check">✓</span> Built for broader team environments</td>
-                <td><span class="partial">△</span> Often strong but infrastructure-bound</td>
-                <td><span class="cross">✕</span> Typically sport-specific</td>
-                <td><span class="cross">✕</span> Not designed for technique workflows</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing -->
-    <section class="section section-tight" id="pricing">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">Pricing and Business Model</span>
-          <h2>Simple B2B pricing aligned with pilot adoption and team growth</h2>
-          <p class="lead">
-            KineticSense combines a one-time hardware kit with recurring software access,
-            making it easier for organizations to start small and expand based on results.
-          </p>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="pricing-card card reveal">
-            <h3>Starter</h3>
-            <p>For pilot programs and smaller academy teams.</p>
-            <div class="price">
-              <strong>$49</strong>
-              <span>/ month</span>
-            </div>
-            <p class="small">Example software tier</p>
-            <ul>
-              <li>Core dashboard access</li>
-              <li>Session review for small squads</li>
-              <li>Basic athlete reporting</li>
-              <li>Email support</li>
-            </ul>
-          </article>
-
-          <article class="pricing-card card featured reveal">
-            <h3>Pro Team</h3>
-            <p>For multi-coach environments and growing programs.</p>
-            <div class="price">
-              <strong>$149</strong>
-              <span>/ month</span>
-            </div>
-            <p class="small">Example software tier</p>
-            <ul>
-              <li>Expanded athlete capacity</li>
-              <li>Advanced reporting views</li>
-              <li>Coach annotations</li>
-              <li>Team trend analysis</li>
-            </ul>
-          </article>
-
-          <article class="pricing-card card reveal">
-            <h3>Institution</h3>
-            <p>For larger academies, university programs, and clubs.</p>
-            <div class="price">
-              <strong>$349</strong>
-              <span>/ month</span>
-            </div>
-            <p class="small">Example software tier</p>
-            <ul>
-              <li>Multi-team visibility</li>
-              <li>Deeper workflow support</li>
-              <li>Priority onboarding</li>
-              <li>Custom review structure</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="hardware-note card reveal">
+        <div class="dev-body">
           <div>
-            <h3 style="margin-bottom:8px;">One-time hardware kit</h3>
-            <!-- EDIT: TEXT -->
-            <p class="small">Example starting hardware package: <strong style="color:var(--white);">$299</strong> per kit, with modular sensor + selected accessory setup.</p>
+            <div class="ring"><div><strong>87</strong><small>/100</small></div></div>
           </div>
-          <div class="pill">Annual plans can be positioned with two months free</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section" id="pilot">
-      <div class="container">
-        <div class="cta-panel reveal">
-          <div class="cta-layout">
-            <div>
-              <span class="eyebrow">Pilot Program</span>
-              <h2>Explore how KineticSense could fit your training environment</h2>
-              <p class="lead">
-                Looking for a more practical way to evaluate movement quality, track athlete development,
-                and give coaches better session insight? Request a pilot conversation or product demo.
-              </p>
-              <div class="btn-group">
-                <a href="#contact" class="btn btn-primary">Request a Demo</a>
-                <a href="#pricing" class="btn btn-secondary">Review Pricing</a>
-              </div>
-            </div>
-
-            <div class="card" style="padding:26px;">
-              <h3>Ideal pilot candidates</h3>
-              <div class="contact-list">
-                <div>Private youth sports academies</div>
-                <div>University athletic programs</div>
-                <div>Professional teams exploring scalable training insight</div>
-              </div>
-              <p class="small" style="margin-top:16px;">
-                A pilot can focus on one sport, one drill category, or one team segment before broader rollout.
-              </p>
-            </div>
+          <div class="dev-bars">
+            <div class="barline"><span>Elbow flexion</span><span class="v">141°</span><div class="track"><i style="width:86%"></i></div></div>
+            <div class="barline"><span>Wrist snap</span><span class="v">+4 ms</span><div class="track"><i style="width:78%"></i></div></div>
+            <div class="barline"><span>Shoulder rotation</span><span class="v">52°</span><div class="track"><i style="width:82%"></i></div></div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="section section-tight" id="contact">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">Contact</span>
-          <h2>Built for sports academies and performance-focused teams</h2>
-          <p class="lead">
-            Use this section as your project contact block for professor review, demo requests,
-            or customer outreach before interviews and pilot meetings.
-          </p>
-        </div>
-
-        <div class="contact-grid">
-          <article class="contact-card card reveal">
-            <h3>Project / Team Information</h3>
-            <!-- EDIT: TEXT -->
-            <p><strong style="color:var(--white);">KineticSense</strong> — Modular Sports Motion Analysis Platform</p>
-            <!-- EDIT: TEXT -->
-            <p>Team / Project Placeholder: <strong style="color:var(--white);">MSH Team</strong></p>
-            <!-- EDIT: TEXT -->
-            <p>Email: <a href="mailto:hello@kineticsense-demo.com">hello@kineticsense-demo.com</a></p>
-            <p class="small">Replace these placeholders with your real team, course, or outreach details.</p>
-          </article>
-
-          <article class="contact-card card reveal">
-            <h3>Suggested next step</h3>
-            <p>
-              Request a short meeting to review the product concept, expected use case,
-              pilot structure, and suitable team setup.
-            </p>
-            <div class="contact-list">
-              <div>15–20 minute intro demo</div>
-              <div>Use-case discussion by sport and training context</div>
-              <div>Pilot planning for academy or team deployment</div>
-            </div>
-          </article>
+        <div class="dev-foot">
+          <span class="tag">FORM: GOOD</span><span class="tag">CONSISTENCY 92%</span><span class="tag">RISK FLAGS 0</span>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <div>
-        <div class="logo" style="margin-bottom:8px;">
-          <span class="logo-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M6 17c2.6-5.6 5.1-8.4 12-10" />
-              <path d="M6 13c2.4 1.8 4.8 2.7 8 3" />
-              <circle cx="18" cy="7" r="2.6" fill="currentColor" stroke="none"></circle>
-            </svg>
-          </span>
-          <span>KineticSense</span>
-        </div>
-        <p class="small" style="margin:0;">Built for sports academies and performance-focused teams.</p>
-      </div>
-
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="#product">Product</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-      </nav>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    // Mobile navigation
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileNav = document.getElementById('mobileNav');
+<!-- ===================== STRIP ===================== -->
+<div class="strip">
+  <div class="strip-inner">
+    <span>BASKETBALL <b>·</b> VOLLEYBALL <b>·</b> TENNIS <b>·</b> FOOTBALL <b>·</b> REAL-TIME TECHNIQUE SCORING <b>·</b> COACH ANNOTATION LOOP <b>·</b> SPORT-ADAPTIVE AI <b>·</b> 9-DOF IMU <b>·</b> </span>
+    <span>BASKETBALL <b>·</b> VOLLEYBALL <b>·</b> TENNIS <b>·</b> FOOTBALL <b>·</b> REAL-TIME TECHNIQUE SCORING <b>·</b> COACH ANNOTATION LOOP <b>·</b> SPORT-ADAPTIVE AI <b>·</b> 9-DOF IMU <b>·</b> </span>
+  </div>
+</div>
 
-    if (menuToggle && mobileNav) {
-      menuToggle.addEventListener('click', () => {
-        const isOpen = mobileNav.classList.toggle('open');
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-      });
+<!-- ===================== LIVE DEMO ===================== -->
+<section class="section" id="demo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Live Product Demo</span>
+      <h2>Watch a training session<br>become data — in real time</h2>
+      <p class="lead">This is the actual KineticSense flow. Press <strong class="lime">Record Shot</strong> as your athlete performs each repetition. The athlete sees a live technique score; the coach watches the dashboard build, flags risky reps, and labels form — feeding the AI that gets smarter every session.</p>
+    </div>
 
-      mobileNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileNav.classList.remove('open');
-          menuToggle.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
+    <div class="demo-frame reveal">
+      <!-- control bar -->
+      <div class="demo-bar">
+        <div class="grp">
+          <button class="ctrl primary" id="btnRec">▶ Record Shot</button>
+          <button class="ctrl" id="btnAuto">Auto-play</button>
+          <button class="ctrl" id="btnReset">Reset</button>
+        </div>
+        <div class="grp">
+          <span class="small" style="color:var(--muted)">Sport:</span>
+          <div class="seg" id="sportSeg">
+            <button data-sport="bball" class="active">Basketball</button>
+            <button data-sport="volley">Volleyball</button>
+            <button data-sport="tennis">Tennis</button>
+            <button data-sport="foot">Football</button>
+          </div>
+        </div>
+        <span class="demo-hint">Presenter tip: one click per shot · or Auto-play</span>
+      </div>
 
-    // Reveal on scroll
-    const revealEls = document.querySelectorAll('.reveal');
+      <div class="demo-stage">
+        <!-- empty overlay -->
+        <div class="demo-empty" id="overlay">
+          <div class="inner">
+            <div class="live-dot" style="justify-content:center;margin-bottom:14px"><i></i>READY</div>
+            <h3 style="font-size:1.5rem">Session not started</h3>
+            <p>Attach the sensor, then press <strong class="lime">Record Shot</strong> for each repetition your athlete performs.</p>
+            <button class="ctrl primary" id="btnStart" style="margin:8px auto 0">▶ Start session</button>
+          </div>
+        </div>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.12
-    });
+        <!-- ATHLETE -->
+        <div class="athlete">
+          <div class="ath-head">
+            <span class="sport" id="aSport">BASKETBALL · JUMP SHOT</span>
+            <span class="live-dot"><i></i>LIVE</span>
+          </div>
+          <div class="ath-sub" id="aAccessory">Wrist Band · 9-DOF IMU · 200 Hz</div>
+          <div class="bigring" id="bigring">
+            <strong id="bigScore">--</strong>
+            <em>TECHNIQUE</em>
+          </div>
+          <div class="status" id="aStatus" style="color:var(--muted)">AWAITING REP</div>
+          <div class="metrics" id="aMetrics"></div>
+          <div class="flagbox" id="aFlag">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="aFlagTxt"></span>
+          </div>
+          <div class="repcount" id="aRep">REP 0</div>
+        </div>
 
-    revealEls.forEach(el => observer.observe(el));
-  </script>
+        <!-- COACH -->
+        <div class="coach">
+          <div class="coach-head">
+            <span class="ttl">Coach Dashboard</span>
+            <span class="pill"><span class="dot"></span>Team · Ahmet K.</span>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><label>Avg technique</label><div class="num" id="kAvg">--</div><div class="delta up" id="kDelta">&nbsp;</div></div>
+            <div class="kpi"><label>Reps recorded</label><div class="num" id="kReps">0</div><div class="delta" style="color:var(--muted)">this session</div></div>
+            <div class="kpi"><label>Reps labeled</label><div class="num" id="kLabel">0%</div><div class="delta" style="color:var(--muted)">coach accuracy</div></div>
+            <div class="kpi"><label>Risk flags</label><div class="num" id="kFlags">0</div><div class="delta neu" id="kFlagD">&nbsp;</div></div>
+          </div>
+          <div class="coach-cols">
+            <div class="panel">
+              <h4>Technique score trend</h4>
+              <p class="small" style="margin:0 0 4px;color:var(--muted)">Live session · score per rep</p>
+              <div class="chart"><svg id="chart" viewBox="0 0 600 188" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#86d80f"/><stop offset="1" stop-color="#b6f24a"/></linearGradient>
+                  <linearGradient id="ag" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="rgba(182,242,74,.3)"/><stop offset="1" stop-color="rgba(182,242,74,0)"/></linearGradient>
+                </defs>
+                <path id="area" fill="url(#ag)" d=""></path>
+                <polyline id="line" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points=""></polyline>
+              </svg></div>
+            </div>
+            <div class="panel">
+              <h4>Rep log · annotate form</h4>
+              <div class="logwrap">
+                <table class="log">
+                  <thead><tr><th>Rep</th><th>Score</th><th>Label</th></tr></thead>
+                  <tbody id="logBody"><tr><td colspan="3" style="color:var(--muted);padding:14px">No reps yet.</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="model-strip" id="modelStrip">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3" stroke-linecap="round"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div class="txt">
+              <strong id="modelTitle">AI model — collecting labels</strong>
+              <p class="small" style="margin:0;color:var(--muted)" id="modelSub">Coach labels feed back into training. Every label makes the model harder to replicate.</p>
+            </div>
+            <div style="font-family:var(--mono);font-weight:700;color:var(--lime)" id="modelAcc">88%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRODUCT ===================== -->
+<section class="section tight" id="product">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Product</span>
+      <h2>One platform, four jobs</h2>
+      <p class="lead">Instead of locking analysis into one venue, one body position, or one sport, KineticSense combines hardware, real-time feedback, and a coach workflow in a single institution-ready system.</p>
+    </div>
+    <div class="grid-3">
+      <article class="fcard card reveal"><div class="ico">01</div><h3>Universal sensor</h3><p>A single detachable 9-DOF IMU magnetically snaps onto six textile accessories — arm, wrist, shoulder, knee, ankle, and compression shirt. One device, every sport.</p></article>
+      <article class="fcard card reveal"><div class="ico">02</div><h3>Real-time scoring</h3><p>BLE 5.0 streaming with a Madgwick orientation filter delivers drift-free joint angles and a live technique score in under 50&nbsp;ms — feedback while the athlete is still training.</p></article>
+      <article class="fcard card reveal"><div class="ico">03</div><h3>Coach dashboard</h3><p>Session reports, athlete trends, risk flags, and a rep-by-rep annotation table — the operational home base for the whole team.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TECHNOLOGY ===================== -->
+<section class="section tight" id="tech">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Technology</span>
+      <h2>Three-stage AI pipeline</h2>
+      <p class="lead">Each stage adds intelligence — delivering value from day one, with no massive labeled dataset required to start.</p>
+    </div>
+    <div class="grid-3">
+      <article class="fcard card reveal"><div class="ico">A</div><h3>Rule-based scoring</h3><p>Threshold logic on filtered joint angles. Immediate per-rep score 0–100, no training data needed.</p></article>
+      <article class="fcard card reveal"><div class="ico">B</div><h3>1D-CNN classifier</h3><p>Trained on coach-annotated pilot data for form-quality detection. Validated at Cohen&rsquo;s κ ≥ 0.65.</p></article>
+      <article class="fcard card reveal"><div class="ico">C</div><h3>Per-athlete autoencoder</h3><p>Builds a personal motion baseline and detects deviation from the athlete&rsquo;s own profile — it gets sharper the longer it&rsquo;s used.</p></article>
+    </div>
+    <div class="card reveal" style="margin-top:18px;padding:24px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;border-color:var(--line)">
+      <div style="font-family:var(--mono);color:var(--lime);font-size:.8rem;letter-spacing:.1em;white-space:nowrap">THE MOAT →</div>
+      <p style="margin:0;color:#cdd8c4"><strong class="lime">Coach annotation loop:</strong> coaches label reps → labels retrain the model → a proprietary dataset grows with every session. Competitors can copy the hardware. They can&rsquo;t copy the data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPARE ===================== -->
+<section class="section tight" id="compare">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Competitive Landscape</span>
+      <h2>The only full-stack fit</h2>
+      <p class="lead">KineticSense is the only product combining affordable hardware, indoor technique AI, and a B2B coach platform.</p>
+    </div>
+    <div class="cmp-wrap reveal">
+      <table class="cmp">
+        <thead><tr><th>Solution</th><th>Focus</th><th>Price</th><th>Joint analysis</th><th>Modular HW</th><th>Coach platform</th></tr></thead>
+        <tbody>
+          <tr><td>Catapult / Kinexon</td><td>GPS load monitoring</td><td>$15K–50K/yr</td><td class="cx">✕</td><td class="cx">✕</td><td class="cx">✕</td></tr>
+          <tr><td>WHOOP</td><td>Physiological recovery</td><td>~$30/mo</td><td class="cx">✕</td><td class="cx">✕</td><td class="cx">✕</td></tr>
+          <tr><td>Hawk-Eye</td><td>Camera tracking</td><td>$50K+ setup</td><td class="cx">✕</td><td class="cx">✕</td><td class="cx">✕</td></tr>
+          <tr><td>Zepp / Playertek</td><td>Single-sport consumer</td><td>$100–300</td><td class="cp">~</td><td class="cx">✕</td><td class="cx">✕</td></tr>
+          <tr class="ks"><td>KineticSense</td><td>Modular wearable + AI</td><td>$299 + $49/mo</td><td class="ck">✓</td><td class="ck">✓</td><td class="ck">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section class="section tight" id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Pricing &amp; Business Model</span>
+      <h2>Hardware once. Software that scales.</h2>
+      <p class="lead">A one-time kit plus a SaaS tier by team size. Start with a pilot, grow with results.</p>
+    </div>
+    <div class="price-grid">
+      <article class="pcard hw card reveal">
+        <div class="tier">Hardware kit</div>
+        <div class="amt">$299<span> one-time</span></div>
+        <ul class="plist"><li>9-DOF IMU module</li><li>6 textile accessories</li><li>BLE 5.0 · IP55</li><li>Magnetic snap attach</li><li>~50% gross margin</li></ul>
+      </article>
+      <article class="pcard card reveal">
+        <div class="tier">Starter</div>
+        <div class="amt">$49<span> /mo</span></div>
+        <p class="small" style="color:var(--muted);margin-top:6px">Up to 5 athletes</p>
+        <ul class="plist"><li>Real-time mobile app</li><li>Coach dashboard</li><li>AI technique scores</li><li>Monthly reports</li></ul>
+      </article>
+      <article class="pcard feat card reveal">
+        <span class="badge">MOST POPULAR</span>
+        <div class="tier">Academy</div>
+        <div class="amt">$149<span> /mo</span></div>
+        <p class="small" style="color:var(--muted);margin-top:6px">Up to 20 athletes</p>
+        <ul class="plist"><li>Everything in Starter</li><li>Team trend analysis</li><li>Coach annotations</li><li>Parent progress reports</li></ul>
+      </article>
+      <article class="pcard card reveal">
+        <div class="tier">Pro Club</div>
+        <div class="amt">$349<span> /mo</span></div>
+        <p class="small" style="color:var(--muted);margin-top:6px">Unlimited athletes</p>
+        <ul class="plist"><li>Everything in Academy</li><li>Multi-team visibility</li><li>Priority onboarding</li><li>Custom review structure</li></ul>
+      </article>
+    </div>
+    <div class="rental reveal">
+      <span class="small" style="color:#cdd8c4"><strong class="lime">Hardware Rental:</strong> $29/month per sensor (12-month min) — removes the upfront barrier, added after customer interviews.</span>
+      <span class="pill">Annual billing — 2 months free</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT / CTA ===================== -->
+<section class="section tight" id="contact">
+  <div class="container">
+    <div class="cta reveal">
+      <div class="cta-grid">
+        <div>
+          <span class="eyebrow">Start a Pilot</span>
+          <h2>Bring objective biomechanics to your program</h2>
+          <p class="lead">Run a free 4-week pilot focused on one sport or one squad. Live technique data becomes your case study for the next academy.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+            <a href="mailto:team@msmas.io" class="btn btn-primary">Request a demo</a>
+            <a href="#demo" class="btn btn-ghost">Replay the live demo</a>
+          </div>
+        </div>
+        <!-- TEAM INFO -->
+        <div class="card" style="padding:24px">
+          <h3>KineticSense · Team MSH</h3>
+          <p class="small" style="margin-bottom:6px">Tech. &amp; Innov. Mng. for Inf. Tech. — Project</p>
+          <div class="contact-list">
+            <div>Hakan Taha Işık · Mertcan Akpolat · Süleyman Kurt</div>
+            <div>team@msmas.io · msmas.io</div>
+            <div>itu-itis23-isikha22.github.io/kineticsense</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container foot">
+    <div>
+      <div class="logo" style="margin-bottom:8px"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 14 12 6 20"/><path d="M13 4 21 12 13 20"/></svg></span>KineticSense</div>
+      <p class="small" style="margin:0">Modular sports motion analysis · Team MSH · 2026</p>
+    </div>
+    <nav class="foot-nav"><a href="#demo">Demo</a><a href="#product">Product</a><a href="#tech">Technology</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></nav>
+  </div>
+</footer>
+
+<div class="toast" id="toast"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span id="toastTxt"></span></div>
+
+<script>
+/* ===== nav ===== */
+const mt=document.getElementById('mt'),mn=document.getElementById('mn');
+mt&&mt.addEventListener('click',()=>mn.classList.toggle('open'));
+mn&&mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mn.classList.remove('open')));
+
+/* ===== reveal ===== */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============================================================
+   LIVE DEMO ENGINE
+   ============================================================ */
+const SPORTS={
+  bball:{name:"BASKETBALL · JUMP SHOT",acc:"Wrist Band · 9-DOF IMU · 200 Hz",
+    metrics:[{n:"Elbow flexion",lo:100,hi:150,u:"°"},{n:"Wrist snap",lo:-25,hi:10,u:" ms"},{n:"Shoulder rotation",lo:30,hi:60,u:"°"}]},
+  volley:{name:"VOLLEYBALL · SPIKE APPROACH",acc:"Shoulder Band · 9-DOF IMU · 200 Hz",
+    metrics:[{n:"Shoulder rotation",lo:60,hi:110,u:"°"},{n:"Arm swing speed",lo:8,hi:22,u:" m/s"},{n:"Contact timing",lo:-30,hi:10,u:" ms"}]},
+  tennis:{name:"TENNIS · SERVE MECHANICS",acc:"Wrist Band · 9-DOF IMU · 200 Hz",
+    metrics:[{n:"Wrist pronation",lo:40,hi:95,u:"°"},{n:"Elbow extension",lo:120,hi:175,u:"°"},{n:"Hip rotation",lo:25,hi:65,u:"°"}]},
+  foot:{name:"FOOTBALL · STRIKE / SPRINT FORM",acc:"Ankle Band · 9-DOF IMU · 200 Hz",
+    metrics:[{n:"Knee flexion",lo:90,hi:150,u:"°"},{n:"Ankle angle",lo:-15,hi:25,u:"°"},{n:"Hip drive",lo:30,hi:70,u:"°"}]}
+};
+
+/* deterministic narrative: tells a clean story regardless of clicks.
+   Each rep: score, three metric quality % (0-100), optional custom flag text. */
+const REP_SCRIPT=[
+  {s:71,m:[68,52,74],flag:null},
+  {s:84,m:[86,80,82],flag:null},
+  {s:62,m:[58,30,55],flag:"Late wrist snap — 18 ms vs baseline"},   // first weak rep
+  {s:88,m:[88,84,86],flag:null},
+  {s:45,m:[40,24,38],flag:"Elbow collapse + early release"},        // dramatic bad rep
+  {s:80,m:[82,76,80],flag:null},
+  {s:91,m:[92,90,90],flag:null},
+  {s:93,m:[94,92,95],flag:null},
+  {s:89,m:[90,86,90],flag:null},
+  {s:95,m:[96,94,96],flag:null}
+];
+
+let state=null;
+function fresh(){return{i:0,started:false,scores:[],labeled:0,flags:0,auto:null,sport:'bball'};}
+
+const $=id=>document.getElementById(id);
+const overlay=$('overlay');
+
+function metricVal(sportKey,idx,pct){
+  const m=SPORTS[sportKey].metrics[idx];
+  let v=m.lo+(m.hi-m.lo)*(pct/100);
+  v=Math.round(v);
+  const sign=(m.u.indexOf('ms')>-1&&v>0)?'+':'';
+  return sign+v+m.u;
+}
+function metricColor(pct){return pct>=70?'var(--lime)':pct>=45?'var(--amber)':'var(--red)';}
+
+function renderMetricsSkeleton(){
+  const sp=SPORTS[state.sport];
+  $('aMetrics').innerHTML=sp.metrics.map((m,i)=>`
+    <div class="metric"><div class="top"><span>${m.n}</span><span class="val" id="mv${i}">--</span></div>
+    <div class="mt"><i id="mb${i}" style="width:0%"></i></div></div>`).join('');
+}
+
+function setSport(key){
+  state.sport=key;
+  $('aSport').textContent=SPORTS[key].name;
+  $('aAccessory').textContent=SPORTS[key].acc;
+  document.querySelectorAll('#sportSeg button').forEach(b=>b.classList.toggle('active',b.dataset.sport===key));
+  resetSession(true);
+}
+
+function resetSession(keepSportLabels){
+  const sport=state?state.sport:'bball';
+  state=fresh(); state.sport=sport;
+  $('bigScore').textContent='--';
+  $('aStatus').textContent='AWAITING REP';$('aStatus').style.color='var(--muted)';
+  $('bigring').style.background='radial-gradient(circle,#0b1009 58%,transparent 59%),conic-gradient(rgba(255,255,255,.08) 0 100%)';
+  $('aFlag').classList.remove('show');
+  $('aRep').textContent='REP 0';
+  renderMetricsSkeleton();
+  $('kAvg').textContent='--';$('kDelta').innerHTML='&nbsp;';
+  $('kReps').textContent='0';$('kLabel').textContent='0%';
+  $('kFlags').textContent='0';$('kFlagD').innerHTML='&nbsp;';
+  $('logBody').innerHTML='<tr><td colspan="3" style="color:var(--muted);padding:14px">No reps yet.</td></tr>';
+  $('line').setAttribute('points','');$('area').setAttribute('d','');
+  $('modelTitle').textContent='AI model — collecting labels';
+  $('modelSub').textContent='Coach labels feed back into training. Every label makes the model harder to replicate.';
+  $('modelAcc').textContent='88%';
+  overlay.style.display='grid';
+  stopAuto();
+}
+
+function startSession(){overlay.style.display='none';state.started=true;}
+
+function ringFor(score){
+  const col=score>=85?'var(--lime)':score>=65?'var(--amber)':'var(--red)';
+  return `radial-gradient(circle,#0b1009 58%,transparent 59%),conic-gradient(${col} 0 ${score}%, rgba(255,255,255,.08) ${score}% 100%)`;
+}
+function statusFor(score){
+  if(score>=90)return['EXCELLENT','var(--lime)'];
+  if(score>=80)return['GOOD FORM','var(--lime)'];
+  if(score>=65)return['ACCEPTABLE','var(--amber)'];
+  return['NEEDS WORK','var(--red)'];
+}
+
+function recordRep(){
+  if(!state.started){startSession();}
+  const rep=REP_SCRIPT[state.i%REP_SCRIPT.length];
+  state.i++;
+  const repNo=state.i;
+  state.scores.push(rep.s);
+
+  /* athlete panel */
+  $('bigScore').textContent=rep.s;
+  $('bigring').style.background=ringFor(rep.s);
+  const [st,col]=statusFor(rep.s);
+  $('aStatus').textContent=st;$('aStatus').style.color=col;
+  rep.m.forEach((pct,i)=>{
+    $('mv'+i).textContent=metricVal(state.sport,i,pct);
+    const bar=$('mb'+i); bar.style.width=pct+'%'; bar.style.background=metricColor(pct);
+  });
+  $('aRep').textContent='REP '+repNo;
+  if(rep.flag){
+    $('aFlag').classList.add('show');
+    $('aFlagTxt').textContent=rep.flag;
+    state.flags++;
+  } else {$('aFlag').classList.remove('show');}
+
+  /* coach KPIs */
+  const avg=Math.round(state.scores.reduce((a,b)=>a+b,0)/state.scores.length);
+  $('kAvg').textContent=avg;
+  if(state.scores.length>1){
+    const first=state.scores[0];const d=avg-first;
+    $('kDelta').textContent=(d>=0?'+':'')+d+' vs rep 1';
+    $('kDelta').className='delta '+(d>=0?'up':'neu');
+  }
+  $('kReps').textContent=repNo;
+  $('kFlags').textContent=state.flags;
+  $('kFlagD').innerHTML=state.flags?'review by staff':'&nbsp;';
+  updateLabelPct();
+
+  /* chart */
+  drawChart();
+
+  /* log row */
+  addLogRow(repNo,rep.s,!!rep.flag);
+}
+
+function addLogRow(no,score,flagged){
+  const tb=$('logBody');
+  if(state.scores.length===1)tb.innerHTML='';
+  const col=score>=85?'var(--lime)':score>=65?'var(--amber)':'var(--red)';
+  const tr=document.createElement('tr');
+  if(flagged)tr.className='flagged';
+  tr.innerHTML=`<td style="font-family:var(--mono);color:var(--muted)">#${no}</td>
+    <td class="sc" style="color:${col}">${score}</td>
+    <td><div class="lbl-btns">
+      <button class="mini ok" title="Mark correct">✓</button>
+      <button class="mini no" title="Mark incorrect">✕</button>
+    </div></td>`;
+  const [ok,no2]=tr.querySelectorAll('.mini');
+  ok.addEventListener('click',()=>label(tr,ok,no2,true));
+  no2.addEventListener('click',()=>label(tr,ok,no2,false));
+  tb.prepend(tr);
+}
+
+function label(tr,ok,no,correct){
+  if(tr.dataset.labeled)return;
+  tr.dataset.labeled='1';
+  (correct?ok:no).classList.add('sel');
+  ok.disabled=no.disabled=true;
+  ok.style.opacity=correct?1:.3; no.style.opacity=correct?.3:1;
+  state.labeled++;
+  updateLabelPct();
+  modelProgress();
+}
+function updateLabelPct(){
+  const pct=state.scores.length?Math.round(state.labeled/state.scores.length*100):0;
+  $('kLabel').textContent=pct+'%';
+}
+function modelProgress(){
+  const strip=$('modelStrip');
+  strip.classList.remove('pulse');void strip.offsetWidth;strip.classList.add('pulse');
+  if(state.labeled===3){
+    $('modelTitle').textContent='AI model retrained — accuracy improved';
+    $('modelSub').textContent='3 coach labels integrated. The proprietary dataset just grew.';
+    $('modelAcc').textContent='91%';
+    showToast('Model updated · technique accuracy 88% → 91%');
+  } else if(state.labeled===6){
+    $('modelTitle').textContent='Model sharpening on your athletes';
+    $('modelSub').textContent='6 labels in. Personalized baseline forming (Stage C).';
+    $('modelAcc').textContent='93%';
+    showToast('Per-athlete baseline updated · Stage C active');
+  } else if(state.labeled>0){
+    $('modelTitle').textContent=`AI model — ${state.labeled} labels integrated`;
+  }
+}
+
+function drawChart(){
+  const sc=state.scores; if(!sc.length)return;
+  const W=600,H=188,pad=10;
+  const n=Math.max(sc.length,2);
+  const xs=i=>pad+(W-2*pad)*(i/(n-1));
+  const ys=v=>H-pad-(H-2*pad)*(v/100);
+  const pts=sc.map((v,i)=>`${xs(i).toFixed(1)},${ys(v).toFixed(1)}`).join(' ');
+  $('line').setAttribute('points',pts);
+  const first=`${pad},${H}`;const last=`${xs(sc.length-1).toFixed(1)},${H}`;
+  $('area').setAttribute('d',`M ${first} L ${pts.split(' ').join(' L ')} L ${last} Z`);
+}
+
+let toastT;
+function showToast(msg){
+  $('toastTxt').innerHTML=msg;
+  const t=$('toast');t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+/* auto-play */
+function startAuto(){
+  if(!state.started)startSession();
+  $('btnAuto').classList.add('on');$('btnAuto').textContent='Pause';
+  state.auto=setInterval(recordRep,2600);
+}
+function stopAuto(){
+  if(state&&state.auto){clearInterval(state.auto);state.auto=null;}
+  const b=$('btnAuto'); if(b){b.classList.remove('on');b.textContent='Auto-play';}
+}
+
+/* wire up */
+state=fresh();renderMetricsSkeleton();
+$('btnStart').addEventListener('click',()=>{startSession();recordRep();});
+$('btnRec').addEventListener('click',recordRep);
+$('btnReset').addEventListener('click',()=>resetSession());
+$('btnAuto').addEventListener('click',()=>{state.auto?stopAuto():startAuto();});
+document.querySelectorAll('#sportSeg button').forEach(b=>b.addEventListener('click',()=>setSport(b.dataset.sport)));
+</script>
 </body>
 </html>
